@@ -452,9 +452,20 @@
             text-decoration: none;
             transition: all 0.3s;
         }
+        .edu-honors a::after {
+            content: '\f35d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.55rem;
+            margin-left: 0.35rem;
+            opacity: 0.5;
+        }
         .edu-honors a:hover {
             background: rgba(124, 144, 130, 0.2);
             color: var(--sage-light);
+        }
+        .edu-honors a:hover::after {
+            opacity: 1;
         }
 
         /* Skills */

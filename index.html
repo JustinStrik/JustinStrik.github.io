@@ -981,7 +981,7 @@
             const numCols = Math.floor(innerWidth / fs);
             const cols = [];
             for (let i = 0; i < numCols; i++) {
-                const col = { x: i * fs, chars: [], speed: 3 + Math.random() * 3, queue: [], gap: 0, timer: 0 };
+                const col = { x: i * fs, chars: [], speed: 1 + Math.random() * 1.5, queue: [], gap: 0, timer: 0 };
                 // Pre-fill screen with characters and occasional words
                 let y = Math.random() * fs;
                 while (y < H + 50) {
@@ -1041,7 +1041,7 @@
                         } else { fillQ(col); col.timer = 1; }
                     }
                     for (const c of col.chars) {
-                        if (!c.isWord && Math.random() < 0.08) c.ch = Math.random() > 0.5 ? '1' : '0';
+                        if (!c.isWord && Math.random() < 0.25) c.ch = Math.random() > 0.5 ? '1' : '0';
                     }
                     for (const c of col.chars) {
                         const fade = Math.max(0, 1 - c.age * 0.004);

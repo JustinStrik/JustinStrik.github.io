@@ -41,7 +41,6 @@
             line-height: 1.6;
         }
 
-        /* Particle canvas */
         #particles-canvas {
             position: fixed;
             top: 0; left: 0;
@@ -64,19 +63,16 @@
             border-bottom: 1px solid var(--border);
             transition: all 0.3s ease;
         }
-
         nav.scrolled {
             padding: 0.6rem 2rem;
             background: rgba(10, 15, 13, 0.9);
         }
-
         .nav-logo {
             font-weight: 600;
             font-size: 1.1rem;
             color: var(--sage-light);
             letter-spacing: 0.5px;
         }
-
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
             color: var(--text-dim);
@@ -98,7 +94,6 @@
         }
         .nav-links a:hover { color: var(--sage-light); }
         .nav-links a:hover::after { width: 100%; }
-
         .mobile-toggle {
             display: none;
             background: none; border: none;
@@ -112,7 +107,6 @@
             z-index: 1;
             padding: 6rem 2rem;
         }
-
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -125,9 +119,7 @@
             align-items: center;
             padding-top: 5rem;
         }
-
         .hero-content { max-width: 700px; }
-
         .hero-label {
             display: inline-block;
             color: var(--sage);
@@ -140,7 +132,6 @@
             opacity: 0;
             transform: translateY(20px);
         }
-
         .hero-name {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
@@ -149,25 +140,21 @@
             opacity: 0;
             transform: translateY(30px);
         }
-
         .hero-name .accent { color: var(--sage-light); }
-
         .hero-desc {
             font-size: 1.15rem;
             color: var(--text-dim);
-            max-width: 550px;
+            max-width: 600px;
             margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateY(30px);
         }
-
         .hero-links {
             display: flex;
             gap: 1rem;
             opacity: 0;
             transform: translateY(30px);
         }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -179,7 +166,6 @@
             font-weight: 500;
             transition: all 0.3s;
         }
-
         .btn-primary {
             background: var(--sage-dark);
             color: var(--text);
@@ -189,7 +175,6 @@
             background: var(--sage);
             box-shadow: 0 0 20px var(--glow);
         }
-
         .btn-ghost {
             background: transparent;
             color: var(--text-dim);
@@ -201,9 +186,7 @@
         }
 
         /* Section headers */
-        .section-header {
-            margin-bottom: 3rem;
-        }
+        .section-header { margin-bottom: 3rem; }
         .section-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
@@ -223,7 +206,6 @@
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
         }
-
         .project-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -235,7 +217,6 @@
             opacity: 0;
             transform: translateY(40px);
         }
-
         .project-card::before {
             content: '';
             position: absolute;
@@ -245,16 +226,13 @@
             opacity: 0;
             transition: opacity 0.4s;
         }
-
         .project-card:hover {
             border-color: var(--sage-dark);
             background: var(--bg-card-hover);
             transform: translateY(-4px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 40px rgba(124,144,130,0.05);
         }
-
         .project-card:hover::before { opacity: 1; }
-
         .project-screenshot {
             width: 100%;
             height: 180px;
@@ -265,18 +243,13 @@
             border: 1px solid var(--border);
             transition: transform 0.4s ease;
         }
-
-        .project-card:hover .project-screenshot {
-            transform: scale(1.02);
-        }
-
+        .project-card:hover .project-screenshot { transform: scale(1.02); }
         .project-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1rem;
         }
-
         .project-year {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
@@ -285,7 +258,6 @@
             border: 1px solid var(--border);
             border-radius: 3px;
         }
-
         .project-links { display: flex; gap: 0.6rem; }
         .project-links a {
             color: var(--text-muted);
@@ -293,26 +265,22 @@
             transition: color 0.3s;
         }
         .project-links a:hover { color: var(--sage-light); }
-
         .project-card h3 {
             font-size: 1.15rem;
             font-weight: 600;
             margin-bottom: 0.6rem;
         }
-
         .project-card p {
             color: var(--text-dim);
             font-size: 0.9rem;
             line-height: 1.7;
             margin-bottom: 1.2rem;
         }
-
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-
         .project-tags span {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
@@ -322,12 +290,44 @@
             border-radius: 3px;
         }
 
+        /* Publication */
+        .pub-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .pub-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .pub-card .pub-authors {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+        .pub-card .pub-venue {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--sage);
+            margin-bottom: 1rem;
+        }
+        .pub-card a {
+            color: var(--sage-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .pub-card a:hover { text-decoration: underline; }
+
         /* Experience timeline */
         .timeline {
             position: relative;
             padding-left: 2rem;
         }
-
         .timeline::before {
             content: '';
             position: absolute;
@@ -335,14 +335,12 @@
             width: 1px;
             background: linear-gradient(to bottom, transparent, var(--sage-dark), transparent);
         }
-
         .timeline-item {
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateX(-20px);
         }
-
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -353,23 +351,79 @@
             background: var(--sage);
             box-shadow: 0 0 10px var(--glow);
         }
-
         .timeline-item h3 {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.3rem;
         }
-
         .timeline-meta {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: var(--sage);
             margin-bottom: 0.5rem;
         }
-
         .timeline-item p {
             color: var(--text-dim);
             font-size: 0.9rem;
+        }
+
+        /* Education */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .edu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.8rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .edu-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .edu-card .edu-school {
+            color: var(--sage);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .edu-card p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .skill-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .skill-group h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sage-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+        .skill-group p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            line-height: 1.8;
         }
 
         /* Contact */
@@ -378,7 +432,6 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
-
         .contact-card {
             display: flex;
             align-items: center;
@@ -393,18 +446,15 @@
             opacity: 0;
             transform: translateY(20px);
         }
-
         .contact-card:hover {
             border-color: var(--sage-dark);
             background: var(--bg-card-hover);
             transform: translateY(-2px);
         }
-
         .contact-card i {
             font-size: 1.2rem;
             color: var(--sage);
         }
-
         .contact-card span {
             font-size: 0.9rem;
             color: var(--text-dim);
@@ -440,7 +490,6 @@
             .hero-links { flex-direction: column; }
         }
 
-        /* Scroll reveal base */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -455,6 +504,8 @@
         <ul class="nav-links">
             <li><a href="#projects">Projects</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <button class="mobile-toggle" aria-label="Toggle menu">
@@ -465,13 +516,13 @@
     <section id="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-label">Software Engineer</div>
+                <div class="hero-label">Software Developer &middot; Los Angeles, CA</div>
                 <h1 class="hero-name">Justin<br><span class="accent">Strikowski</span></h1>
-                <p class="hero-desc">Building full-stack tools, data pipelines, and AI systems. UF Computer Science grad with experience spanning fintech, research, and SaaS.</p>
+                <p class="hero-desc">Software developer with an M.S. in Computer Science from the University of Florida and a peer-reviewed ACM publication in bioinformatics. Experienced across the full stack — from AI-driven platforms and cloud pipelines to database design. Currently building at AcquiOS.</p>
                 <div class="hero-links">
                     <a href="#projects" class="btn btn-primary"><i class="fas fa-arrow-down"></i> View Work</a>
                     <a href="https://github.com/JustinStrik" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://linkedin.com/in/justinstrikowski" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/justin-strikowski-a8a715208" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
         </div>
@@ -489,34 +540,17 @@
                     <div class="project-top">
                         <span class="project-year">2025</span>
                         <div class="project-links">
-                            <a href="https://dl.acm.org/doi/10.1145/3765612.3767242" target="_blank" title="Publication"><i class="fas fa-file-alt"></i></a>
-                        </div>
-                    </div>
-                    <h3>AI in BioInformatics Research</h3>
-
-                    <p>Published research applying AI techniques to bioinformatics problems. Paper published in ACM Digital Library.</p>
-                    <div class="project-tags">
-                        <span>AI/ML</span>
-                        <span>Bioinformatics</span>
-                        <span>Research</span>
-                        <span>ACM</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-top">
-                        <span class="project-year">2025</span>
-                        <div class="project-links">
                             <a href="https://brandradar.co/" target="_blank" title="Live"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <h3>BrandRadar — Sentiment Monitoring</h3>
                     <img src="images/brandradar.png" alt="BrandRadar" class="project-screenshot">
-                    <p>Automated brand sentiment monitoring platform. Tracks and analyzes brand perception across channels in real time.</p>
+                    <p>Built custom software for an online brand-mention monitoring platform using Python, n8n, and MySQL. Tracks and analyzes brand perception across social media and review channels in real time.</p>
                     <div class="project-tags">
+                        <span>Python</span>
+                        <span>MySQL</span>
+                        <span>n8n</span>
                         <span>NLP</span>
-                        <span>Analytics</span>
-                        <span>Full-Stack</span>
                         <span>Automation</span>
                     </div>
                 </div>
@@ -526,34 +560,53 @@
                         <span class="project-year">2025</span>
                         <div class="project-links">
                             <a href="https://acquios.ai/p/acquios" target="_blank" title="Live"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://acquios.ai/p/commercial_real_estate" target="_blank" title="CRE Page"><i class="fas fa-building"></i></a>
                         </div>
                     </div>
-                    <h3>Acquios AI — CMS & Landing Pages</h3>
-                    <img src="images/acquios.png" alt="Acquios AI" class="project-screenshot">
-                    <p>Built the main webpage and commercial real estate landing page using Acquios's custom CMS platform.</p>
+                    <h3>AcquiOS — AI Deal Analysis Platform</h3>
+                    <img src="images/acquios.png" alt="AcquiOS" class="project-screenshot">
+                    <p>Built core features of an AI-driven real-estate deal-analysis tool that evaluates and ranks potential acquisitions. Designed and maintained a custom CMS powering both the main site and commercial real estate landing pages.</p>
                     <div class="project-tags">
+                        <span>Full-Stack</span>
                         <span>CMS</span>
-                        <span>Web Dev</span>
                         <span>AI</span>
+                        <span>React</span>
                         <span>Real Estate</span>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-top">
-                        <span class="project-year">2023–2024</span>
+                        <span class="project-year">2025</span>
+                        <div class="project-links">
+                            <a href="https://dl.acm.org/doi/10.1145/3765612.3767242" target="_blank" title="Publication"><i class="fas fa-file-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3>PLATO — ACM Bioinformatics Research</h3>
+                    <p>Co-authored "PLATO: Predicting Longitudinally-Aligned Time Observations of Biological Networks," comparing matrix factorization, ML, and other methods for predicting missing time-series values in gene-interaction networks. Published at ACM BCB 2025.</p>
+                    <div class="project-tags">
+                        <span>AI/ML</span>
+                        <span>Bioinformatics</span>
+                        <span>Python</span>
+                        <span>ACM</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2023–2025</span>
                         <div class="project-links">
                             <a href="https://github.com/Liu-Group-UF" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                             <a href="https://liu.chem.ufl.edu/" target="_blank" title="Lab Site"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
-                    <h3>Liu Group Research Tools</h3>
+                    <h3>Liu Group — AI Database & Research Tools</h3>
                     <img src="images/liu-group.png" alt="Liu Group" class="project-screenshot">
-                    <p>Built tools and databases for the Liu research group at UF's Chemistry department, supporting computational chemistry workflows.</p>
+                    <p>Customized data-analysis tools using Python and MongoDB to transform raw experimental data into structured, queryable formats for computational chemistry research at UF. Collaborated with researchers to iterate on tool design through ongoing feedback.</p>
                     <div class="project-tags">
                         <span>Python</span>
-                        <span>Database</span>
-                        <span>Research</span>
+                        <span>MongoDB</span>
+                        <span>Data Analysis</span>
                         <span>UF</span>
                     </div>
                 </div>
@@ -567,11 +620,12 @@
                     </div>
                     <h3>Financial Statements Module</h3>
                     <img src="images/orca.png" alt="Orca Financial Statements" class="project-screenshot">
-                    <p>Built the Financial Statements Module during a software engineering internship at SerVC / Orca Inc.</p>
+                    <p>Built the Financial Statements Module during an internship at SerVC, working in full-stack development with MySQL, TypeScript, CSS, and HTML. Collaborated with developers to ensure seamless integration.</p>
                     <div class="project-tags">
+                        <span>TypeScript</span>
+                        <span>MySQL</span>
                         <span>Fintech</span>
                         <span>Full-Stack</span>
-                        <span>Internship</span>
                     </div>
                 </div>
 
@@ -583,7 +637,7 @@
                         </div>
                     </div>
                     <h3>Baseball MiniPros</h3>
-                    <p>Interactive baseball simulation built in Processing. Uses a B&eacute;zier curve for the outfield fence geometry, checking y-at-x for home run detection.</p>
+                    <p>Interactive baseball simulation built in Processing for an Interactive Modeling &amp; Animation course. Uses a B&eacute;zier curve for the outfield fence geometry, checking y-at-x for home run detection.</p>
                     <div class="project-tags">
                         <span>Processing</span>
                         <span>Simulation</span>
@@ -596,6 +650,22 @@
         </div>
     </section>
 
+    <!-- Publication -->
+    <section id="publication">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Research</div>
+                <h2 class="section-title">Publication</h2>
+            </div>
+            <div class="pub-card">
+                <h3>PLATO: Predicting Longitudinally-Aligned Time Observations of Biological Networks</h3>
+                <p class="pub-authors">T. Khatib, S. Gafarov, <strong>J. Strikowski</strong>, M. Turan, T. Kahveci</p>
+                <p class="pub-venue">ACM Conference on Bioinformatics, Computational Biology, and Health Informatics (BCB), 2025</p>
+                <a href="https://dl.acm.org/doi/10.1145/3765612.3767242" target="_blank">View on ACM Digital Library <i class="fas fa-arrow-right" style="font-size:0.75rem"></i></a>
+            </div>
+        </div>
+    </section>
+
     <section id="experience">
         <div class="container">
             <div class="section-header reveal">
@@ -604,24 +674,82 @@
             </div>
             <div class="timeline">
                 <div class="timeline-item">
-                    <h3>Software Engineer</h3>
-                    <div class="timeline-meta">Acquios AI &middot; BrandRadar &middot; 2024 – Present</div>
-                    <p>Building CMS-driven web experiences and an automated brand sentiment monitoring platform.</p>
+                    <h3>Software Developer</h3>
+                    <div class="timeline-meta">AcquiOS &middot; Feb 2025 – Present</div>
+                    <p>Building core features of the AcquiOS AI deal-analysis platform and BrandRadar sentiment monitoring tool. Designed and maintained a custom CMS powering both products.</p>
                 </div>
                 <div class="timeline-item">
-                    <h3>Research Developer</h3>
-                    <div class="timeline-meta">Liu Group, UF Chemistry &middot; 2023 – 2024</div>
-                    <p>Developed tools and databases for computational chemistry research. Published AI/bioinformatics work in ACM.</p>
+                    <h3>Research Software Developer — Bioinformatics</h3>
+                    <div class="timeline-meta">University of Florida &middot; Sep 2024 – Jun 2025</div>
+                    <p>Worked with Prof. Tamer Kahveci comparing matrix factorization, ML, and other methods for predicting missing time-series values in gene-interaction networks. Co-authored ACM BCB 2025 paper.</p>
                 </div>
                 <div class="timeline-item">
-                    <h3>Software Engineering Intern</h3>
-                    <div class="timeline-meta">SerVC / Orca Inc &middot; 2022</div>
-                    <p>Built the Financial Statements Module for the Orca fintech platform.</p>
+                    <h3>Research Associate — AI Database Design</h3>
+                    <div class="timeline-meta">UF Chemistry Dept. (Liu Group) &middot; Jan 2023 – May 2025</div>
+                    <p>Customized data-analysis tools with Python and MongoDB for computational chemistry research. UF AI Scholar Award recipient.</p>
                 </div>
                 <div class="timeline-item">
-                    <h3>B.S. Computer Science</h3>
-                    <div class="timeline-meta">University of Florida</div>
-                    <p>Coursework in algorithms, systems, interactive modeling & animation.</p>
+                    <h3>Data Science and AI Intern</h3>
+                    <div class="timeline-meta">Kyndryl (Fortune 500) &middot; Jul 2023 – Aug 2023</div>
+                    <p>Created Google Cloud pipelines using AI and cloud computing for clients to streamline business operations.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>AI Web Application Developer</h3>
+                    <div class="timeline-meta">TextWith (Freelance) &middot; Dec 2022 – Jan 2023</div>
+                    <p>Developed an OpenAI-powered text generator using TypeScript and Angular that analyzes inputs and responds with philosophical insights.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Full-Stack Developer Intern</h3>
+                    <div class="timeline-meta">SerVC / Orca Inc &middot; Jun 2022 – Aug 2022</div>
+                    <p>Built the Financial Statements Module using MySQL, TypeScript, CSS, and HTML in a collaborative full-stack environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Education</div>
+                <h2 class="section-title">University of Florida</h2>
+            </div>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <h3>M.S. in Computer Science</h3>
+                    <div class="edu-school">May 2025 &middot; 3.87 GPA &middot; Magna Cum Laude</div>
+                    <p>Research focus in bioinformatics and AI. Published at ACM BCB 2025. Student Government Senator. Florida Blue Key member.</p>
+                </div>
+                <div class="edu-card">
+                    <h3>B.S. in Computer Science + AI Certificate</h3>
+                    <div class="edu-school">May 2024 &middot; 3.89 GPA &middot; Magna Cum Laude</div>
+                    <p>President's List. Dean's List. UF AI Scholar Award for Outstanding Research. Bright Futures Full Scholarship. IEEE Member. TensorFlow Certified (IBM).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Toolkit</div>
+                <h2 class="section-title">Technical Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>Languages</h3>
+                    <p>Python, Java, C++, JavaScript/TypeScript, SQL, Julia, LaTeX</p>
+                </div>
+                <div class="skill-group">
+                    <h3>Web & Full-Stack</h3>
+                    <p>React, Angular, Node.js, HTML/CSS, REST APIs, Git, Agile/Jira</p>
+                </div>
+                <div class="skill-group">
+                    <h3>Data & AI/ML</h3>
+                    <p>TensorFlow, RAG, Vector DBs, Bioinformatics, Power BI, n8n</p>
+                </div>
+                <div class="skill-group">
+                    <h3>Infrastructure</h3>
+                    <p>AWS, Google Cloud, Docker, MongoDB, MySQL, HPC</p>
                 </div>
             </div>
         </div>
@@ -642,7 +770,7 @@
                     <i class="fab fa-github"></i>
                     <span>JustinStrik</span>
                 </a>
-                <a href="https://linkedin.com/in/justinstrikowski" target="_blank" class="contact-card">
+                <a href="https://www.linkedin.com/in/justin-strikowski-a8a715208" target="_blank" class="contact-card">
                     <i class="fab fa-linkedin"></i>
                     <span>LinkedIn</span>
                 </a>
@@ -654,33 +782,24 @@
         <p>&copy; 2025 Justin Strikowski</p>
     </footer>
 
-    <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script>
-        // Particle network background
+        // Particle network
         (function() {
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const PARTICLE_COUNT = 60;
-            const CONNECTION_DIST = 150;
+            const COUNT = 60, DIST = 150;
             let mouse = { x: null, y: null };
 
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
+            function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
             resize();
-            window.addEventListener('resize', resize);
+            addEventListener('resize', resize);
+            document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-            document.addEventListener('mousemove', e => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
-
-            class Particle {
+            class P {
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
@@ -689,8 +808,7 @@
                     this.r = Math.random() * 1.5 + 0.5;
                 }
                 update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
+                    this.x += this.vx; this.y += this.vy;
                     if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                     if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
                 }
@@ -701,36 +819,31 @@
                     ctx.fill();
                 }
             }
-
-            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+            for (let i = 0; i < COUNT; i++) particles.push(new P());
 
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => { p.update(); p.draw(); });
-
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < CONNECTION_DIST) {
+                        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+                        const d = Math.sqrt(dx*dx + dy*dy);
+                        if (d < DIST) {
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(124, 144, 130, ${0.08 * (1 - dist / CONNECTION_DIST)})`;
+                            ctx.strokeStyle = `rgba(124,144,130,${0.08*(1-d/DIST)})`;
                             ctx.stroke();
                         }
                     }
-                    // Mouse interaction
                     if (mouse.x !== null) {
-                        const dx = particles[i].x - mouse.x;
-                        const dy = particles[i].y - mouse.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 200) {
+                        const dx = particles[i].x - mouse.x, dy = particles[i].y - mouse.y;
+                        const d = Math.sqrt(dx*dx + dy*dy);
+                        if (d < 200) {
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(mouse.x, mouse.y);
-                            ctx.strokeStyle = `rgba(163, 184, 160, ${0.12 * (1 - dist / 200)})`;
+                            ctx.strokeStyle = `rgba(163,184,160,${0.12*(1-d/200)})`;
                             ctx.stroke();
                         }
                     }
@@ -740,61 +853,39 @@
             animate();
         })();
 
-        // GSAP Animations
+        // GSAP
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero entrance
-        const heroTl = gsap.timeline({ delay: 0.3 });
-        heroTl
-            .to('.hero-label', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
-            .to('.hero-name', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
-            .to('.hero-desc', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-            .to('.hero-links', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+        // Hero
+        const tl = gsap.timeline({ delay: 0.3 });
+        tl.to('.hero-label', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+          .to('.hero-name', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
+          .to('.hero-desc', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+          .to('.hero-links', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
 
-        // Section headers
+        // Reveals
         gsap.utils.toArray('.reveal').forEach(el => {
-            gsap.to(el, {
-                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-                scrollTrigger: { trigger: el, start: 'top 85%' }
-            });
+            gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
         });
 
-        // Project cards stagger
-        gsap.utils.toArray('.project-card').forEach((card, i) => {
-            gsap.to(card, {
-                opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-                delay: i * 0.1,
-                scrollTrigger: { trigger: card, start: 'top 88%' }
-            });
+        // Cards
+        gsap.utils.toArray('.project-card, .edu-card, .skill-group, .pub-card').forEach((el, i) => {
+            gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: i * 0.08, scrollTrigger: { trigger: el, start: 'top 88%' } });
         });
 
-        // Timeline items
-        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-            gsap.to(item, {
-                opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
-                delay: i * 0.15,
-                scrollTrigger: { trigger: item, start: 'top 85%' }
-            });
+        // Timeline
+        gsap.utils.toArray('.timeline-item').forEach((el, i) => {
+            gsap.to(el, { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out', delay: i * 0.12, scrollTrigger: { trigger: el, start: 'top 85%' } });
         });
 
-        // Contact cards
-        gsap.utils.toArray('.contact-card').forEach((card, i) => {
-            gsap.to(card, {
-                opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
-                delay: i * 0.1,
-                scrollTrigger: { trigger: card, start: 'top 90%' }
-            });
+        // Contact
+        gsap.utils.toArray('.contact-card').forEach((el, i) => {
+            gsap.to(el, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: i * 0.1, scrollTrigger: { trigger: el, start: 'top 90%' } });
         });
 
-        // Nav scroll effect
-        window.addEventListener('scroll', () => {
-            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Mobile menu toggle
-        document.querySelector('.mobile-toggle').addEventListener('click', () => {
-            document.querySelector('.nav-links').classList.toggle('open');
-        });
+        // Nav
+        addEventListener('scroll', () => document.querySelector('nav').classList.toggle('scrolled', scrollY > 50));
+        document.querySelector('.mobile-toggle').addEventListener('click', () => document.querySelector('.nav-links').classList.toggle('open'));
     </script>
 </body>
 </html>

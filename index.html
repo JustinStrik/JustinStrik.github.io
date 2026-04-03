@@ -564,9 +564,90 @@
             opacity: 0;
             transform: translateY(30px);
         }
+
+        /* Loading screen */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.8rem;
+            background: var(--bg);
+            transition: opacity 0.8s;
+        }
+        #loading-screen.done {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #loading-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        #loading-screen .load-label {
+            position: relative; z-index: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--sage);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: loadFadeUp 0.4s 0.3s forwards;
+        }
+        #loading-screen .load-name {
+            position: relative; z-index: 1;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: loadFadeUp 0.5s 0.5s forwards;
+        }
+        #loading-screen .load-enter {
+            position: relative; z-index: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: loadFadeUp 0.4s 1.2s forwards, loadPulse 2s 1.6s infinite;
+        }
+        @keyframes loadPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Transition: matrix resolves into page */
+        #site-wrapper {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        #site-wrapper.visible {
+            opacity: 1;
+        }
+        @keyframes loadFadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes loadBarFill { to { width: 100%; } }
     </style>
 </head>
 <body>
+    <!-- Loading screen -->
+    <div id="loading-screen">
+        <canvas id="loading-canvas"></canvas>
+        <p class="load-label">loading</p>
+        <h1 class="load-name">Justin Strikowski</h1>
+        <p class="load-label">Software Engineer Portfolio</p>
+        <p class="load-enter">click anywhere or press any key to enter</p>
+    </div>
+
+    <div id="site-wrapper">
     <canvas id="particles-canvas"></canvas>
 
     <nav>
@@ -872,11 +953,141 @@
     <footer id="site-footer">
         <p>&copy; 2025 Justin Strikowski</p>
     </footer>
+    </div><!-- end site-wrapper -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script>
+        // Matrix rain loading screen
+        (function() {
+            const canvas = document.getElementById('loading-canvas');
+            const ctx = canvas.getContext('2d');
+            let W, H;
+            function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+            resize();
+            addEventListener('resize', resize);
+
+            const fs = 14;
+            const words = [
+                'JUSTIN','STRIKOWSKI','SOFTWARE','DEVELOPER',
+                'PYTHON','REACT','ACQUIOS','BRANDRADAR','PLATO',
+                'MYSQL','MONGODB','TENSORFLOW','BIOINFORMATICS',
+                'JAVASCRIPT','TYPESCRIPT','DOCKER','AWS','ANGULAR',
+                'NODE','API','GIT','AI','ML','FLORIDA','GATORS',
+                'ACM','KYNDRYL','FULLSTACK','CMS','RESEARCH',
+                'DATA','CLOUD','DEPLOY','BUILD','QUERY','SCHEMA',
+            ];
+            const numCols = Math.floor(innerWidth / fs);
+            const cols = [];
+            for (let i = 0; i < numCols; i++) {
+                const col = { x: i * fs, chars: [], speed: 3 + Math.random() * 3, queue: [], gap: 0, timer: 0 };
+                // Pre-fill screen with characters and occasional words
+                let y = Math.random() * fs;
+                while (y < H + 50) {
+                    if (Math.random() < 0.02) {
+                        const w = words[Math.floor(Math.random() * words.length)];
+                        for (const c of w) {
+                            col.chars.push({ ch: c, y: y, age: Math.floor(Math.random() * 60), isWord: true });
+                            y += fs;
+                        }
+                        y += fs * (Math.floor(Math.random() * 5) + 3);
+                    } else {
+                        col.chars.push({
+                            ch: Math.random() > 0.5 ? '1' : '0',
+                            y: y,
+                            age: Math.floor(Math.random() * 80),
+                            isWord: false,
+                        });
+                        y += fs;
+                    }
+                }
+                cols.push(col);
+            }
+            function fillQ(col) {
+                if (Math.random() < 0.12) {
+                    const w = words[Math.floor(Math.random() * words.length)];
+                    const pad = Math.floor(Math.random() * 4) + 1;
+                    for (let i = 0; i < pad; i++) col.queue.push({ ch: Math.random() > 0.5 ? '1' : '0', isWord: false });
+                    for (const c of w) col.queue.push({ ch: c, isWord: true });
+                    const trail = Math.floor(Math.random() * 6) + 2;
+                    for (let i = 0; i < trail; i++) col.queue.push({ ch: Math.random() > 0.5 ? '1' : '0', isWord: false });
+                    col.gap = Math.floor(Math.random() * 10) + 3;
+                } else {
+                    const len = Math.floor(Math.random() * 10) + 3;
+                    for (let i = 0; i < len; i++) col.queue.push({ ch: Math.random() > 0.5 ? '1' : '0', isWord: false });
+                    col.gap = Math.floor(Math.random() * 15) + 5;
+                }
+            }
+            let running = true;
+            function draw() {
+                if (!running) return;
+                ctx.fillStyle = 'rgba(10, 15, 13, 0.55)';
+                ctx.fillRect(0, 0, W, H);
+                ctx.font = fs + 'px JetBrains Mono, monospace';
+                for (const col of cols) {
+                    for (let i = col.chars.length - 1; i >= 0; i--) {
+                        col.chars[i].y -= col.speed;
+                        col.chars[i].age++;
+                        if (col.chars[i].y < -20) col.chars.splice(i, 1);
+                    }
+                    col.timer--;
+                    if (col.timer <= 0) {
+                        if (col.gap > 0) { col.gap--; col.timer = 1; }
+                        else if (col.queue.length > 0) {
+                            const next = col.queue.shift();
+                            col.chars.push({ ...next, y: H + 10, age: 0 });
+                            col.timer = fs / col.speed;
+                        } else { fillQ(col); col.timer = 1; }
+                    }
+                    for (const c of col.chars) {
+                        if (!c.isWord && Math.random() < 0.08) c.ch = Math.random() > 0.5 ? '1' : '0';
+                    }
+                    for (const c of col.chars) {
+                        const fade = Math.max(0, 1 - c.age * 0.004);
+                        const isNew = c.age < 3;
+                        if (c.isWord) {
+                            ctx.fillStyle = isNew ? `rgba(220,245,210,${fade})` : `rgba(150,195,145,${fade*0.8})`;
+                        } else {
+                            ctx.fillStyle = isNew ? `rgba(170,205,165,${fade*0.7})` : `rgba(120,160,120,${fade*0.45})`;
+                        }
+                        ctx.fillText(c.ch, col.x, c.y);
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+
+            function dismissLoading() {
+                if (!running) return;
+                const screen = document.getElementById('loading-screen');
+                const wrapper = document.getElementById('site-wrapper');
+
+                // Speed up rain dramatically for the resolve effect
+                for (const col of cols) {
+                    col.speed *= 3;
+                }
+
+                // After a beat, start fading loading and showing site
+                setTimeout(() => {
+                    screen.classList.add('done');
+                    wrapper.classList.add('visible');
+                    setTimeout(() => {
+                        running = false;
+                        screen.style.display = 'none';
+                    }, 800);
+                }, 400);
+            }
+
+            document.addEventListener('click', dismissLoading);
+            document.addEventListener('keydown', (e) => {
+                if (running) {
+                    e.preventDefault();
+                    dismissLoading();
+                }
+            });
+        })();
+
         // Particle network
         (function() {
             const canvas = document.getElementById('particles-canvas');

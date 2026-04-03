@@ -441,13 +441,20 @@
             gap: 0.4rem;
             margin-top: 0.8rem;
         }
-        .edu-honors span {
+        .edu-honors span,
+        .edu-honors a {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             color: var(--sage);
             padding: 0.2rem 0.6rem;
             background: rgba(124, 144, 130, 0.08);
             border-radius: 3px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .edu-honors a:hover {
+            background: rgba(124, 144, 130, 0.2);
+            color: var(--sage-light);
         }
 
         /* Skills */
@@ -779,9 +786,9 @@
                     <div class="edu-school">May 2025 &middot; 3.87 GPA &middot; Magna Cum Laude</div>
                     <p>Research focus in bioinformatics and AI. Published at ACM BCB 2025.</p>
                     <div class="edu-honors">
-                        <span>ACM Publication</span>
-                        <span>Student Government Senator</span>
-                        <span>Florida Blue Key</span>
+                        <a href="https://dl.acm.org/doi/10.1145/3765612.3767242" target="_blank">ACM Publication</a>
+                        <a href="https://web.archive.org/web/20250419083252/https://sg.ufl.edu/branches/legislative/senate-roster/" target="_blank">Student Government Senator</a>
+                        <a href="https://www.fbk.org/" target="_blank">Florida Blue Key</a>
                     </div>
                 </div>
                 <div class="edu-card">
@@ -791,9 +798,9 @@
                     <div class="edu-honors">
                         <span>President's List</span>
                         <span>Dean's List</span>
-                        <span>UF AI Scholar Award</span>
+                        <a href="https://liu.chem.ufl.edu/2023/04/17/justin-strikowski-received-artificial-intelligence-scholar-award/" target="_blank">UF AI Scholar Award</a>
                         <span>Bright Futures Full Scholarship</span>
-                        <span>TensorFlow Certified (IBM)</span>
+                        <a href="https://www.credly.com/badges/9ea9d483-c56a-46c7-ae02-982a30041279/linked_in_profile" target="_blank">TensorFlow Certified (IBM)</a>
                         <span>IEEE Member</span>
                     </div>
                 </div>

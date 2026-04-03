@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin Strikowski — Software Engineer</title>
+    <title>Justin Strikowski - Software Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -119,7 +119,29 @@
             align-items: center;
             padding-top: 5rem;
         }
-        .hero-content { max-width: 700px; }
+        .hero-content {
+            max-width: 700px;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        .hero-text { flex: 1; }
+        .hero-headshot {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--sage-dark);
+            box-shadow: 0 0 30px rgba(124,144,130,0.2);
+            flex-shrink: 0;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        @media (max-width: 768px) {
+            .hero-content { flex-direction: column-reverse; text-align: center; }
+            .hero-headshot { width: 150px; height: 150px; }
+            .hero-links { justify-content: center; }
+        }
         .hero-label {
             display: inline-block;
             color: var(--sage);
@@ -368,6 +390,21 @@
         }
 
         /* Education */
+        .edu-header-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .edu-logo {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+        }
+        .edu-header-row .section-header { margin-bottom: 0; }
+        .edu-header-row .section-title span {
+            color: var(--sage-light);
+        }
         .edu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -390,12 +427,26 @@
             color: var(--sage);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
         }
         .edu-card p {
             color: var(--text-dim);
             font-size: 0.85rem;
             line-height: 1.6;
+        }
+        .edu-honors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+        .edu-honors span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--sage);
+            padding: 0.2rem 0.6rem;
+            background: rgba(124, 144, 130, 0.08);
+            border-radius: 3px;
         }
 
         /* Skills */
@@ -516,14 +567,17 @@
     <section id="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-label">Software Developer &middot; Los Angeles, CA</div>
-                <h1 class="hero-name">Justin<br><span class="accent">Strikowski</span></h1>
-                <p class="hero-desc">Software developer with an M.S. in Computer Science from the University of Florida and a peer-reviewed ACM publication in bioinformatics. Experienced across the full stack — from AI-driven platforms and cloud pipelines to database design. Currently building at AcquiOS.</p>
-                <div class="hero-links">
-                    <a href="#projects" class="btn btn-primary"><i class="fas fa-arrow-down"></i> View Work</a>
-                    <a href="https://github.com/JustinStrik" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://www.linkedin.com/in/justin-strikowski-a8a715208" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <div class="hero-text">
+                    <div class="hero-label">Software Developer &middot; Los Angeles, CA</div>
+                    <h1 class="hero-name">Justin<br><span class="accent">Strikowski</span></h1>
+                    <p class="hero-desc">Software developer with an M.S. in Computer Science from the University of Florida and a peer-reviewed ACM publication in bioinformatics. Experienced across the full stack — from AI-driven platforms and cloud pipelines to database design. Currently building at AcquiOS.</p>
+                    <div class="hero-links">
+                        <a href="#projects" class="btn btn-primary"><i class="fas fa-arrow-down"></i> View Work</a>
+                        <a href="https://github.com/JustinStrik" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/justin-strikowski-a8a715208" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    </div>
                 </div>
+                <img src="images/headshot.jpg" alt="Justin Strikowski" class="hero-headshot">
             </div>
         </div>
     </section>
@@ -583,6 +637,7 @@
                         </div>
                     </div>
                     <h3>PLATO — ACM Bioinformatics Research</h3>
+                    <img src="images/plato-graphs.png" alt="PLATO balanced accuracy results" class="project-screenshot">
                     <p>Co-authored "PLATO: Predicting Longitudinally-Aligned Time Observations of Biological Networks," comparing matrix factorization, ML, and other methods for predicting missing time-series values in gene-interaction networks. Published at ACM BCB 2025.</p>
                     <div class="project-tags">
                         <span>AI/ML</span>
@@ -600,7 +655,7 @@
                             <a href="https://liu.chem.ufl.edu/" target="_blank" title="Lab Site"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
-                    <h3>Liu Group — AI Database & Research Tools</h3>
+                    <h3>Computational Chemistry Research</h3>
                     <img src="images/liu-group.png" alt="Liu Group" class="project-screenshot">
                     <p>Customized data-analysis tools using Python and MongoDB to transform raw experimental data into structured, queryable formats for computational chemistry research at UF. Collaborated with researchers to iterate on tool design through ongoing feedback.</p>
                     <div class="project-tags">
@@ -637,6 +692,7 @@
                         </div>
                     </div>
                     <h3>Baseball MiniPros</h3>
+                    <img src="images/baseball-minipros.png" alt="Baseball MiniPros" class="project-screenshot">
                     <p>Interactive baseball simulation built in Processing for an Interactive Modeling &amp; Animation course. Uses a B&eacute;zier curve for the outfield fence geometry, checking y-at-x for home run detection.</p>
                     <div class="project-tags">
                         <span>Processing</span>
@@ -709,20 +765,36 @@
 
     <section id="education">
         <div class="container">
-            <div class="section-header reveal">
-                <div class="section-label">Education</div>
-                <h2 class="section-title">University of Florida</h2>
+            <div class="edu-header-row reveal">
+                <img src="images/uf-gator.png" alt="University of Florida" class="edu-logo">
+                <div class="section-header">
+                    <div class="section-label">Education</div>
+                    <h2 class="section-title">University of <span>Florida</span></h2>
+                </div>
             </div>
             <div class="edu-grid">
                 <div class="edu-card">
                     <h3>M.S. in Computer Science</h3>
                     <div class="edu-school">May 2025 &middot; 3.87 GPA &middot; Magna Cum Laude</div>
-                    <p>Research focus in bioinformatics and AI. Published at ACM BCB 2025. Student Government Senator. Florida Blue Key member.</p>
+                    <p>Research focus in bioinformatics and AI. Published at ACM BCB 2025.</p>
+                    <div class="edu-honors">
+                        <span>ACM Publication</span>
+                        <span>Student Government Senator</span>
+                        <span>Florida Blue Key</span>
+                    </div>
                 </div>
                 <div class="edu-card">
                     <h3>B.S. in Computer Science + AI Certificate</h3>
                     <div class="edu-school">May 2024 &middot; 3.89 GPA &middot; Magna Cum Laude</div>
-                    <p>President's List. Dean's List. UF AI Scholar Award for Outstanding Research. Bright Futures Full Scholarship. IEEE Member. TensorFlow Certified (IBM).</p>
+                    <p>Graduated with honors and full scholarship. Recognized for outstanding AI research.</p>
+                    <div class="edu-honors">
+                        <span>President's List</span>
+                        <span>Dean's List</span>
+                        <span>UF AI Scholar Award</span>
+                        <span>Bright Futures Full Scholarship</span>
+                        <span>TensorFlow Certified (IBM)</span>
+                        <span>IEEE Member</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -861,7 +933,8 @@
         tl.to('.hero-label', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
           .to('.hero-name', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
           .to('.hero-desc', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-          .to('.hero-links', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+          .to('.hero-links', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+          .to('.hero-headshot', { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.5)' }, '-=0.8');
 
         // Reveals
         gsap.utils.toArray('.reveal').forEach(el => {

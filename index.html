@@ -1,206 +1,800 @@
-<!DOCTYPE HTML>
-<!--
-	Based on Prologue by HTML5 UP --- i'm leaving this in, just citing my sources :)
--->
-<html>
-	<head>
-		<title>Justin Strikowski</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justin Strikowski — Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --sage: #7C9082;
+            --sage-light: #A3B8A0;
+            --sage-lighter: #D4E2D4;
+            --sage-dark: #5A6B5D;
+            --sage-darker: #3D4A3F;
+            --bg: #0A0F0D;
+            --bg-card: #111916;
+            --bg-card-hover: #162019;
+            --text: #E8EDE9;
+            --text-dim: #8A9B8D;
+            --text-muted: #5A6B5D;
+            --border: rgba(124, 144, 130, 0.15);
+            --glow: rgba(124, 144, 130, 0.3);
+        }
 
-		<!-- Header -->
-			<div id="header">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-				<div class="top">
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--sage-dark) var(--bg);
+        }
 
-					<!-- Logo -->
-						<div id="logo">
-							<span class="image avatar48"><img src="images/avatar.jpg" alt="" /></span>
-							<h1 id="title">Justin Strikowski</h1>
-							<p>Software Engineer</p>
-						</div>
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="#top" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
-								<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a></li>
-								<li><a href="#about" id="about-link"><span class="icon solid fa-user">About Me</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
-							</ul>
-						</nav>
+        /* Particle canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-				</div>
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 15, 13, 0.7);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
 
-				<div class="bottom">
+        nav.scrolled {
+            padding: 0.6rem 2rem;
+            background: rgba(10, 15, 13, 0.9);
+        }
 
-					<!-- Social Icons -->
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--sage-light);
+            letter-spacing: 0.5px;
+        }
 
-				</div>
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1.5px;
+            background: var(--sage);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--sage-light); }
+        .nav-links a:hover::after { width: 100%; }
 
-			</div>
+        .mobile-toggle {
+            display: none;
+            background: none; border: none;
+            color: var(--text); font-size: 1.5rem;
+            cursor: pointer;
+        }
 
-		<!-- Main -->
-			<div id="main">
+        /* Sections */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 2rem;
+        }
 
-				<!-- Intro -->
-					<section id="top" class="one dark cover">
-						<div class="container">
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-							<header>
-								<h2 class="alt">Hi! I'm <strong>Justin</strong>, a <a href="http://html5up.net/license">free</a> responsive<br />
-								site template designed by <a href="http://html5up.net">HTML5 UP</a>.</h2>
-								<p>Ligula scelerisque justo sem accumsan diam quis<br />
-								vitae natoque dictum sollicitudin elementum.</p>
-							</header>
+        /* Hero */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+        }
 
-							<footer>
-								<a href="#portfolio" class="button scrolly">Magna Aliquam</a>
-							</footer>
+        .hero-content { max-width: 700px; }
 
-						</div>
-					</section>
+        .hero-label {
+            display: inline-block;
+            color: var(--sage);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-				<!-- Portfolio -->
-					<section id="portfolio" class="two">
-						<div class="container">
+        .hero-name {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
 
-							<header>
-								<h2>Portfolio</h2>
-							</header>
+        .hero-name .accent { color: var(--sage-light); }
 
-							<p>Vitae natoque dictum etiam semper magnis enim feugiat convallis convallis
-							egestas rhoncus ridiculus in quis risus amet curabitur tempor orci penatibus.
-							Tellus erat mauris ipsum fermentum etiam vivamus eget. Nunc nibh morbi quis
-							fusce hendrerit lacus ridiculus.</p>
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 550px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
 
-							<div class="row">
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-										<header>
-											<h3>Ipsum Feugiat</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-										<header>
-											<h3>Rhoncus Semper</h3>
-										</header>
-									</article>
-								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-										<header>
-											<h3>Magna Nullam</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-										<header>
-											<h3>Natoque Vitae</h3>
-										</header>
-									</article>
-								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-										<header>
-											<h3>Dolor Penatibus</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-										<header>
-											<h3>Orci Convallis</h3>
-										</header>
-									</article>
-								</div>
-							</div>
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
 
-						</div>
-					</section>
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
 
-				<!-- About Me -->
-					<section id="about" class="three">
-						<div class="container">
+        .btn-primary {
+            background: var(--sage-dark);
+            color: var(--text);
+            border: 1px solid var(--sage);
+        }
+        .btn-primary:hover {
+            background: var(--sage);
+            box-shadow: 0 0 20px var(--glow);
+        }
 
-							<header>
-								<h2>About Me</h2>
-							</header>
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover {
+            color: var(--sage-light);
+            border-color: var(--sage);
+        }
 
-							<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
+        /* Section headers */
+        .section-header {
+            margin-bottom: 3rem;
+        }
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
 
-							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-							ornare iaculis.</p>
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
 
-						</div>
-					</section>
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.8rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+        }
 
-				<!-- Contact -->
-					<section id="contact" class="four">
-						<div class="container">
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sage), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
 
-							<header>
-								<h2>Contact</h2>
-							</header>
+        .project-card:hover {
+            border-color: var(--sage-dark);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 40px rgba(124,144,130,0.05);
+        }
 
-							<p>Elementum sem parturient nulla quam placerat viverra
-							mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-							donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
-							orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+        .project-card:hover::before { opacity: 1; }
 
-							<form method="post" action="#">
-								<div class="row">
-									<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-									<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-									<div class="col-12">
-										<textarea name="message" placeholder="Message"></textarea>
-									</div>
-									<div class="col-12">
-										<input type="submit" value="Send Message" />
-									</div>
-								</div>
-							</form>
+        .project-screenshot {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 6px;
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border);
+            transition: transform 0.4s ease;
+        }
 
-						</div>
-					</section>
+        .project-card:hover .project-screenshot {
+            transform: scale(1.02);
+        }
 
-			</div>
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
 
-		<!-- Footer -->
-			<div id="footer">
+        .project-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--sage);
+            padding: 0.2rem 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+        }
 
-				<!-- Copyright -->
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
+        .project-links { display: flex; gap: 0.6rem; }
+        .project-links a {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .project-links a:hover { color: var(--sage-light); }
 
-			</div>
+        .project-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        .project-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
 
-	</body>
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-tags span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--sage);
+            padding: 0.2rem 0.6rem;
+            background: rgba(124, 144, 130, 0.08);
+            border-radius: 3px;
+        }
+
+        /* Experience timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--sage-dark), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 8px;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--sage);
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-card:hover {
+            border-color: var(--sage-dark);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .contact-card i {
+            font-size: 1.2rem;
+            color: var(--sage);
+        }
+
+        .contact-card span {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* Footer */
+        footer#site-footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: rgba(10, 15, 13, 0.95);
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .mobile-toggle { display: block; }
+            section { padding: 4rem 1.5rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero-links { flex-direction: column; }
+        }
+
+        /* Scroll reveal base */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav>
+        <div class="nav-logo">JS</div>
+        <ul class="nav-links">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">Software Engineer</div>
+                <h1 class="hero-name">Justin<br><span class="accent">Strikowski</span></h1>
+                <p class="hero-desc">Building full-stack tools, data pipelines, and AI systems. UF Computer Science grad with experience spanning fintech, research, and SaaS.</p>
+                <div class="hero-links">
+                    <a href="#projects" class="btn btn-primary"><i class="fas fa-arrow-down"></i> View Work</a>
+                    <a href="https://github.com/JustinStrik" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://linkedin.com/in/justinstrikowski" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Work</div>
+                <h2 class="section-title">Selected Projects</h2>
+            </div>
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2025</span>
+                        <div class="project-links">
+                            <a href="https://dl.acm.org/doi/10.1145/3765612.3767242" target="_blank" title="Publication"><i class="fas fa-file-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3>AI in BioInformatics Research</h3>
+
+                    <p>Published research applying AI techniques to bioinformatics problems. Paper published in ACM Digital Library.</p>
+                    <div class="project-tags">
+                        <span>AI/ML</span>
+                        <span>Bioinformatics</span>
+                        <span>Research</span>
+                        <span>ACM</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2025</span>
+                        <div class="project-links">
+                            <a href="https://brandradar.co/" target="_blank" title="Live"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3>BrandRadar — Sentiment Monitoring</h3>
+                    <img src="images/brandradar.png" alt="BrandRadar" class="project-screenshot">
+                    <p>Automated brand sentiment monitoring platform. Tracks and analyzes brand perception across channels in real time.</p>
+                    <div class="project-tags">
+                        <span>NLP</span>
+                        <span>Analytics</span>
+                        <span>Full-Stack</span>
+                        <span>Automation</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2025</span>
+                        <div class="project-links">
+                            <a href="https://acquios.ai/p/acquios" target="_blank" title="Live"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3>Acquios AI — CMS & Landing Pages</h3>
+                    <img src="images/acquios.png" alt="Acquios AI" class="project-screenshot">
+                    <p>Built the main webpage and commercial real estate landing page using Acquios's custom CMS platform.</p>
+                    <div class="project-tags">
+                        <span>CMS</span>
+                        <span>Web Dev</span>
+                        <span>AI</span>
+                        <span>Real Estate</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2023–2024</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Liu-Group-UF" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://liu.chem.ufl.edu/" target="_blank" title="Lab Site"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3>Liu Group Research Tools</h3>
+                    <img src="images/liu-group.png" alt="Liu Group" class="project-screenshot">
+                    <p>Built tools and databases for the Liu research group at UF's Chemistry department, supporting computational chemistry workflows.</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>Database</span>
+                        <span>Research</span>
+                        <span>UF</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2022</span>
+                        <div class="project-links">
+                            <a href="https://www.orcainc.com/p/financial-statements" target="_blank" title="Live"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3>Financial Statements Module</h3>
+                    <img src="images/orca.png" alt="Orca Financial Statements" class="project-screenshot">
+                    <p>Built the Financial Statements Module during a software engineering internship at SerVC / Orca Inc.</p>
+                    <div class="project-tags">
+                        <span>Fintech</span>
+                        <span>Full-Stack</span>
+                        <span>Internship</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <span class="project-year">2024</span>
+                        <div class="project-links">
+                            <a href="https://github.com/JustinStrik/Baseball-MiniPros" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3>Baseball MiniPros</h3>
+                    <p>Interactive baseball simulation built in Processing. Uses a B&eacute;zier curve for the outfield fence geometry, checking y-at-x for home run detection.</p>
+                    <div class="project-tags">
+                        <span>Processing</span>
+                        <span>Simulation</span>
+                        <span>B&eacute;zier Curves</span>
+                        <span>Animation</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Background</div>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Software Engineer</h3>
+                    <div class="timeline-meta">Acquios AI &middot; BrandRadar &middot; 2024 – Present</div>
+                    <p>Building CMS-driven web experiences and an automated brand sentiment monitoring platform.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Research Developer</h3>
+                    <div class="timeline-meta">Liu Group, UF Chemistry &middot; 2023 – 2024</div>
+                    <p>Developed tools and databases for computational chemistry research. Published AI/bioinformatics work in ACM.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Software Engineering Intern</h3>
+                    <div class="timeline-meta">SerVC / Orca Inc &middot; 2022</div>
+                    <p>Built the Financial Statements Module for the Orca fintech platform.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>B.S. Computer Science</h3>
+                    <div class="timeline-meta">University of Florida</div>
+                    <p>Coursework in algorithms, systems, interactive modeling & animation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Connect</div>
+                <h2 class="section-title">Get in Touch</h2>
+            </div>
+            <div class="contact-grid">
+                <a href="mailto:strikowski.justin@gmail.com" class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <span>strikowski.justin@gmail.com</span>
+                </a>
+                <a href="https://github.com/JustinStrik" target="_blank" class="contact-card">
+                    <i class="fab fa-github"></i>
+                    <span>JustinStrik</span>
+                </a>
+                <a href="https://linkedin.com/in/justinstrikowski" target="_blank" class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="site-footer">
+        <p>&copy; 2025 Justin Strikowski</p>
+    </footer>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Particle network background
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const PARTICLE_COUNT = 60;
+            const CONNECTION_DIST = 150;
+            let mouse = { x: null, y: null };
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            document.addEventListener('mousemove', e => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.vy = (Math.random() - 0.5) * 0.4;
+                    this.r = Math.random() * 1.5 + 0.5;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(124, 144, 130, 0.4)';
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < CONNECTION_DIST) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(124, 144, 130, ${0.08 * (1 - dist / CONNECTION_DIST)})`;
+                            ctx.stroke();
+                        }
+                    }
+                    // Mouse interaction
+                    if (mouse.x !== null) {
+                        const dx = particles[i].x - mouse.x;
+                        const dy = particles[i].y - mouse.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 200) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.strokeStyle = `rgba(163, 184, 160, ${0.12 * (1 - dist / 200)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero entrance
+        const heroTl = gsap.timeline({ delay: 0.3 });
+        heroTl
+            .to('.hero-label', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+            .to('.hero-name', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
+            .to('.hero-desc', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+            .to('.hero-links', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+
+        // Section headers
+        gsap.utils.toArray('.reveal').forEach(el => {
+            gsap.to(el, {
+                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 85%' }
+            });
+        });
+
+        // Project cards stagger
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.to(card, {
+                opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+                delay: i * 0.1,
+                scrollTrigger: { trigger: card, start: 'top 88%' }
+            });
+        });
+
+        // Timeline items
+        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+            gsap.to(item, {
+                opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
+                delay: i * 0.15,
+                scrollTrigger: { trigger: item, start: 'top 85%' }
+            });
+        });
+
+        // Contact cards
+        gsap.utils.toArray('.contact-card').forEach((card, i) => {
+            gsap.to(card, {
+                opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+                delay: i * 0.1,
+                scrollTrigger: { trigger: card, start: 'top 90%' }
+            });
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+    </script>
+</body>
 </html>

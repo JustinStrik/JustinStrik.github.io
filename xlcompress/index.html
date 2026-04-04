@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SheetCompressor</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --surface2: #1c1c1c;
+    --border: #262626;
+    --border2: #333;
+    --accent: #22c55e;
+    --accent-dim: rgba(34,197,94,0.1);
+    --text: #f5f5f5;
+    --text2: #a3a3a3;
+    --text3: #525252;
+    --addr: #60a5fa;
+    --type: #22c55e;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 52px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+  }
+  .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav-logo span { color: var(--accent); }
+  .nav-right { font-size: 12px; color: var(--text3); }
+
+  main { max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .upload-area { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+
+  .headline { text-align: center; }
+  .headline h2 { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.2; }
+  .headline p { margin-top: 10px; font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+  .dropzone {
+    width: 100%; max-width: 520px;
+    border: 1px dashed var(--border2);
+    padding: 52px 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: var(--surface);
+  }
+  .dropzone:hover, .dropzone.over { border-color: var(--accent); background: var(--accent-dim); }
+  .dropzone-icon { width: 36px; height: 36px; margin: 0 auto 16px; opacity: 0.4; }
+  .dropzone h3 { font-size: 14px; font-weight: 500; }
+  .dropzone p { margin-top: 6px; font-size: 12px; color: var(--text3); }
+  .dropzone .browse { color: var(--accent); cursor: pointer; }
+  #file-input { display: none; }
+
+  .status-line { font-size: 12px; color: var(--text3); min-height: 18px; text-align: center; }
+  .status-line.err { color: #f87171; }
+
+  .options-bar {
+    width: 100%; max-width: 520px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .opt-group { display: flex; flex-direction: column; gap: 6px; }
+  .opt-label {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text3);
+  }
+
+  .seg { display: flex; background: var(--surface); border: 1px solid var(--border); }
+  .seg button {
+    padding: 6px 13px; background: none; border: none;
+    font-size: 12px; color: var(--text2); cursor: pointer;
+    transition: background 0.1s, color 0.1s; white-space: nowrap;
+  }
+  .seg button:not(:last-child) { border-right: 1px solid var(--border); }
+  .seg button.active { background: var(--accent-dim); color: var(--accent); }
+  .seg button:hover:not(.active) { color: var(--text); }
+
+  .tog { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .tog input { display: none; }
+  .tog-track {
+    width: 28px; height: 16px; background: var(--border2);
+    border-radius: 99px; position: relative; transition: background 0.15s; flex-shrink: 0;
+  }
+  .tog input:checked + .tog-track { background: var(--accent); }
+  .tog-thumb {
+    position: absolute; top: 2px; left: 2px;
+    width: 12px; height: 12px; background: #fff;
+    border-radius: 50%; transition: left 0.15s;
+  }
+  .tog input:checked + .tog-track .tog-thumb { left: 14px; }
+  .tog-text { font-size: 12px; color: var(--text2); }
+
+  .tip { position: relative; display: inline-flex; align-items: center; }
+  .tip-icon {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1px solid var(--border2); color: var(--text3);
+    font-size: 9px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: default; flex-shrink: 0;
+  }
+  .tip:hover .tip-box { opacity: 1; pointer-events: auto; }
+  .tip-box {
+    opacity: 0; pointer-events: none;
+    position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%);
+    background: #1f1f1f; border: 1px solid var(--border2);
+    padding: 8px 10px; font-size: 11px; line-height: 1.5;
+    color: var(--text2); width: 220px; white-space: normal;
+    z-index: 100; transition: opacity 0.1s;
+    text-transform: none; letter-spacing: 0; font-weight: 400;
+  }
+  .tip-box::after {
+    content: ''; position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent; border-top-color: var(--border2);
+  }
+
+  .sheet-row { display: none; align-items: center; gap: 2px; border-bottom: 1px solid var(--border); margin-bottom: -1px; overflow-x: auto; flex-wrap: nowrap; }
+  .sheet-row.visible { display: flex; }
+  .sheet-row::-webkit-scrollbar { height: 3px; }
+  .sheet-row::-webkit-scrollbar-track { background: transparent; }
+  .sheet-row::-webkit-scrollbar-thumb { background: var(--border2); }
+  .sheet-tab {
+    padding: 8px 16px; font-size: 12px; background: none; border: none;
+    border-bottom: 2px solid transparent; color: var(--text3);
+    cursor: pointer; transition: color 0.1s, border-color 0.1s; white-space: nowrap;
+  }
+  .sheet-tab:hover { color: var(--text2); }
+  .sheet-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  #output-section { display: none; }
+  #output-section.visible { display: block; }
+
+  .output-header {
+    display: flex; align-items: center; justify-content: space-between; padding: 16px 0 12px;
+  }
+  .output-meta { display: flex; align-items: center; gap: 16px; }
+  .output-file { font-size: 13px; color: var(--text2); }
+  .output-file strong { color: var(--text); font-weight: 500; }
+  .compression-stat {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; padding: 3px 10px;
+    background: var(--accent-dim); color: var(--accent);
+  }
+  .compression-stat .slash { opacity: 0.5; }
+
+  .output-actions { display: flex; gap: 8px; }
+  .btn {
+    padding: 6px 14px; font-size: 12px; font-weight: 500;
+    border: none; cursor: pointer; transition: opacity 0.1s; letter-spacing: 0.01em;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn:active { opacity: 0.6; }
+  .btn-ghost { background: var(--surface2); border: 1px solid var(--border); color: var(--text2); }
+  .btn-primary { background: var(--accent); color: #000; font-weight: 600; }
+
+  .panes {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--border); min-height: 480px;
+  }
+  .pane { display: flex; flex-direction: column; overflow: hidden; }
+  .pane + .pane { border-left: 1px solid var(--border); }
+  .pane-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; background: var(--surface);
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .pane-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); }
+  .pane-badge { font-size: 11px; color: var(--text3); font-variant-numeric: tabular-nums; }
+  .pane-body {
+    flex: 1; overflow-y: auto; padding: 16px;
+    font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+    font-size: 12px; line-height: 1.75; white-space: pre-wrap;
+    word-break: break-all; color: var(--text2);
+  }
+  .pane-body::-webkit-scrollbar { width: 4px; }
+  .pane-body::-webkit-scrollbar-track { background: transparent; }
+  .pane-body::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  .addr { color: var(--addr); }
+  .type-label { color: var(--type); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Sheet<span>Compressor</span></div>
+  <div class="nav-right"><a href="/" style="color:var(--text3);text-decoration:none;margin-right:16px">&larr; Portfolio</a> arXiv 2407.09025</div>
+</nav>
+
+<main>
+  <div class="upload-area" id="upload-area">
+    <div class="headline">
+      <h2>Compress spreadsheets<br>for LLM context windows</h2>
+      <p>Drop in a spreadsheet and get a compact, structured<br>representation of your data.</p>
+    </div>
+
+    <div class="dropzone" id="dropzone">
+      <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12M8 8l4-4 4 4"/>
+      </svg>
+      <h3>Drop a file, or <span class="browse" id="browse-btn">browse</span></h3>
+      <p>.xlsx · .xlsb · .xls · .csv</p>
+      <input type="file" id="file-input" accept=".xlsx,.xlsb,.xls,.csv">
+    </div>
+
+    <div style="width:100%;max-width:520px;text-align:center;font-size:12px;color:var(--text3);margin:4px 0">— or paste CSV / tab-separated text —</div>
+    <div style="width:100%;max-width:520px">
+      <textarea id="csv-paste" placeholder="Paste CSV or tab-separated data here..." style="width:100%;height:120px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;padding:12px;resize:vertical;outline:none;"></textarea>
+      <button class="btn btn-primary" id="paste-btn" style="margin-top:8px;width:100%">Compress Pasted Text</button>
+    </div>
+
+    <div class="status-line" id="status"></div>
+
+    <div class="options-bar">
+      <div class="opt-group">
+        <div class="opt-label">
+          Output mode
+          <span class="tip">
+            <span class="tip-icon">?</span>
+            <span class="tip-box">
+              <strong>Aggregated</strong> — groups cells of the same data type into labeled regions, replacing values with type tags like IntNum or DateData.<br><br>
+              <strong>Vanilla</strong> — lists each non-empty cell as |Address, Value|.<br><br>
+              <strong>Inverted Index</strong> — maps each unique value to its list of cell addresses.
+            </span>
+          </span>
+        </div>
+        <div class="seg" id="mode-seg">
+          <button class="active" data-mode="auto">Auto</button>
+          <button data-mode="aggregated">Aggregated</button>
+          <button data-mode="vanilla">Vanilla</button>
+          <button data-mode="inverted">Inverted Index</button>
+        </div>
+      </div>
+
+      <div class="opt-group">
+        <div class="opt-label">
+          Options
+          <span class="tip">
+            <span class="tip-icon">?</span>
+            <span class="tip-box">
+              <strong>Structural compression</strong> — detects table anchor rows and columns, then removes rows and columns far from any anchor, shrinking the grid before aggregation runs.
+            </span>
+          </span>
+        </div>
+        <label class="tog">
+          <input type="checkbox" checked id="structural-toggle">
+          <div class="tog-track"><div class="tog-thumb"></div></div>
+          <span class="tog-text">Structural compression</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-row" id="sheet-row"></div>
+
+  <div id="output-section">
+    <div class="output-header">
+      <div class="output-meta">
+        <span class="output-file">Compressing <strong id="output-filename">—</strong></span>
+        <span class="compression-stat">
+          <span id="tok-before">—</span>
+          <span class="slash">/</span>
+          <span id="tok-after">—</span>
+          tokens
+        </span>
+      </div>
+      <div class="output-actions">
+        <button class="btn btn-ghost" id="copy-btn">Copy</button>
+        <button class="btn btn-primary" id="dl-btn">Download .txt</button>
+      </div>
+    </div>
+
+    <div class="panes">
+      <div class="pane">
+        <div class="pane-header">
+          <span class="pane-title">Original</span>
+          <span class="pane-badge" id="badge-original">— tokens</span>
+        </div>
+        <div class="pane-body" id="pane-original"></div>
+      </div>
+      <div class="pane">
+        <div class="pane-header">
+          <span class="pane-title">Compressed</span>
+          <span class="pane-badge"><span id="badge-mode" style="margin-right:8px;color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.06em"></span><span id="badge-compressed">— tokens</span></span>
+        </div>
+        <div class="pane-body" id="pane-compressed"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+  import init, { process } from './pkg/wasm_api.js';
+
+  const TYPE_LABELS = [
+    'IntNum','FloatNum','YearData','DateData','TimeData',
+    'CurrencyData','PercentageNum','SentificNum','EmailData','Unknown',
+  ];
+
+  let wasmReady = false;
+  let sheets = [];
+  let currentMode = 'auto';
+  let lastFile = null;
+
+  const statusEl = document.getElementById('status');
+  function setStatus(msg, isErr = false) {
+    statusEl.className = 'status-line' + (isErr ? ' err' : '');
+    statusEl.textContent = msg;
+  }
+
+  init().then(() => { wasmReady = true; setStatus(''); })
+       .catch(e => setStatus('Failed to load engine: ' + e.message, true));
+
+  setStatus('Loading compression engine…');
+
+  // ── Drag & drop
+  const dz = document.getElementById('dropzone');
+  const fi = document.getElementById('file-input');
+  document.getElementById('browse-btn').onclick = () => fi.click();
+  fi.onchange = e => { if (e.target.files[0]) handleFile(e.target.files[0]); };
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('over');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+
+  // ── Mode / options
+  document.getElementById('mode-seg').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll('#mode-seg button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentMode = btn.dataset.mode;
+    if (lastFile) runPipeline(lastFile.jsonl, lastFile.originals);
+  });
+
+  document.getElementById('structural-toggle').addEventListener('change', () => {
+    if (lastFile) runPipeline(lastFile.jsonl, lastFile.originals);
+  });
+
+  // ── Convert workbook sheet to pipeline Cell_Input / NFS_Input format
+  function sheetToRecord(ws, sheetName) {
+    const ref = ws['!ref'];
+    if (!ref) return null;
+    const range = XLSX.utils.decode_range(ref);
+
+    const cellRows = [];
+    const nfsRows  = [];
+
+    for (let r = range.s.r; r <= range.e.r; r++) {
+      const cellParts = [];
+      const nfsParts  = [];
+      let hasData = false;
+
+      for (let c = range.s.c; c <= range.e.c; c++) {
+        const addr = XLSX.utils.encode_cell({ r, c });
+        const cell = ws[addr];
+        const value = cell ? (cell.w != null ? String(cell.w) : String(cell.v ?? '')) : '';
+        if (value !== '') hasData = true;
+        cellParts.push(`|${addr},${value}`);
+        nfsParts.push(`|${addr},None`);
+      }
+
+      // Skip rows with no data at all
+      if (!hasData) continue;
+
+      cellRows.push(cellParts.join(''));
+      nfsRows.push(nfsParts.join(''));
+    }
+
+    if (!cellRows.length) return null;
+
+    const content = `\nCell_Input: ${cellRows.join('\n')}\nNFS_Input: ${nfsRows.join('\n')}\n\n###\n\n`;
+    return {
+      file_name: sheetName,
+      messages: [
+        { role: 'system',    content: '' },
+        { role: 'user',      content },
+        { role: 'assistant', content: [] },
+      ],
+    };
+  }
+
+  // Tab-separated — matches what you get when you copy straight from Excel
+  function sheetToTsv(ws) {
+    return XLSX.utils.sheet_to_csv(ws, { FS: '\t', blankrows: true });
+  }
+
+  function workbookToData(wb) {
+    const jsonlLines = [];
+    const originals  = {};   // sheetName → vanilla text (the LLM input baseline)
+    for (const name of wb.SheetNames) {
+      const ws = wb.Sheets[name];
+      const record = sheetToRecord(ws, name);
+      if (!record) continue;
+      jsonlLines.push(JSON.stringify(record));
+      originals[name] = sheetToTsv(ws);
+    }
+    return { jsonl: jsonlLines.join('\n'), originals };
+  }
+
+  // ── File handler
+  async function handleFile(file) {
+    if (!wasmReady) { setStatus('Engine still loading, try again in a moment.'); return; }
+    setStatus('Reading file…');
+    document.getElementById('output-filename').textContent = file.name;
+
+    try {
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array', cellDates: false });
+      const { jsonl, originals } = workbookToData(wb);
+      if (!jsonl.trim()) { setStatus('No data found in file.', true); return; }
+      lastFile = { jsonl, originals, name: file.name };
+      runPipeline(jsonl, originals);
+    } catch (e) {
+      setStatus('Could not read file: ' + e.message, true);
+    }
+  }
+
+  function runPipeline(jsonl, originals) {
+    setStatus('Compressing…');
+    const structural = document.getElementById('structural-toggle').checked;
+
+    const modes = currentMode === 'auto' ? ['aggregated', 'vanilla', 'inverted'] : [currentMode];
+    // Map sheetName → best result so far
+    const best = {};
+    try {
+      for (const mode of modes) {
+        const results = JSON.parse(process(jsonl, mode, structural));
+        for (const s of results) {
+          if (!best[s.name] || s.comp_tokens < best[s.name].comp_tokens) {
+            best[s.name] = { ...s, chosenMode: mode };
+          }
+        }
+      }
+    } catch (e) {
+      setStatus('Pipeline error: ' + e.message, true);
+      return;
+    }
+
+    const results = Object.values(best);
+    if (!results.length) { setStatus('No output produced.', true); return; }
+
+    for (const s of results) {
+      // Display the raw sheet as TSV (readable) but keep orig_tokens from the
+      // WASM (based on the Cell_Input format — the actual uncompressed LLM input).
+      s.rawOriginal = originals[s.name] ?? s.original;
+    }
+    setStatus('');
+    sheets = results;
+    buildTabs();
+    setActiveSheet(0);
+    document.getElementById('output-section').classList.add('visible');
+  }
+
+  function buildTabs() {
+    const row = document.getElementById('sheet-row');
+    row.innerHTML = '';
+    sheets.forEach((s, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'sheet-tab' + (i === 0 ? ' active' : '');
+      btn.textContent = s.name;
+      btn.onclick = () => setActiveSheet(i);
+      row.appendChild(btn);
+    });
+    row.classList.add('visible');
+  }
+
+  function setActiveSheet(idx) {
+    document.querySelectorAll('.sheet-tab').forEach((b, i) => b.classList.toggle('active', i === idx));
+    const s = sheets[idx];
+    const fmt = n => n.toLocaleString();
+    document.getElementById('tok-before').textContent = fmt(s.orig_tokens);
+    document.getElementById('tok-after').textContent  = fmt(s.comp_tokens);
+    document.getElementById('badge-original').textContent   = fmt(s.orig_tokens) + ' tokens';
+    document.getElementById('badge-compressed').textContent = fmt(s.comp_tokens) + ' tokens';
+    document.getElementById('badge-mode').textContent = currentMode === 'auto' ? (s.chosenMode ?? '') : '';
+    document.getElementById('pane-original').textContent = s.rawOriginal ?? s.original;
+    document.getElementById('pane-compressed').innerHTML = highlight(s.compressed);
+  }
+
+  function highlight(text) {
+    text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    // Addresses: |A1, or |A1:B3,
+    text = text.replace(/\|([A-Z]+\d+(?::[A-Z]+\d+)?),/g, '|<span class="addr">$1</span>,');
+    for (const lbl of TYPE_LABELS) {
+      text = text.replace(new RegExp('\\b' + lbl + '\\b', 'g'), `<span class="type-label">${lbl}</span>`);
+    }
+    return text;
+  }
+
+  // ── Actions
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    navigator.clipboard.writeText(document.getElementById('pane-compressed').innerText).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = 'Copied';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    });
+  });
+
+  document.getElementById('dl-btn').addEventListener('click', () => {
+    const text = document.getElementById('pane-compressed').innerText;
+    const blob = new Blob([text], { type: 'text/plain' });
+    const a = document.createElement('a');
+    const name = document.getElementById('output-filename').textContent.replace(/\.\w+$/, '');
+    a.href = URL.createObjectURL(blob);
+    a.download = name + '_compressed.txt';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  // ── CSV paste handler
+  document.getElementById('paste-btn').addEventListener('click', () => {
+    const text = document.getElementById('csv-paste').value.trim();
+    if (!text) { setStatus('Paste some data first.', true); return; }
+    if (!wasmReady) { setStatus('Engine still loading, try again in a moment.'); return; }
+
+    // Detect delimiter: if tabs present use tab, else comma
+    const delim = text.includes('\t') ? '\t' : ',';
+    const rows = text.split('\n').map(line => line.split(delim));
+
+    // Build JSONL record
+    const cellRows = [];
+    const nfsRows = [];
+    for (let r = 0; r < rows.length; r++) {
+      const cellParts = [];
+      const nfsParts = [];
+      let hasData = false;
+      for (let c = 0; c < rows[r].length; c++) {
+        const addr = String.fromCharCode(65 + (c % 26)) + (c >= 26 ? String.fromCharCode(65 + Math.floor(c/26) - 1) : '') ;
+        const cellAddr = (c < 26 ? String.fromCharCode(65+c) : String.fromCharCode(65+Math.floor(c/26)-1) + String.fromCharCode(65+c%26)) + (r+1);
+        const val = rows[r][c].trim();
+        if (val) hasData = true;
+        cellParts.push('|' + cellAddr + ',' + val);
+        nfsParts.push('|' + cellAddr + ',None');
+      }
+      if (!hasData) continue;
+      cellRows.push(cellParts.join(''));
+      nfsRows.push(nfsParts.join(''));
+    }
+
+    if (!cellRows.length) { setStatus('No data found in pasted text.', true); return; }
+
+    const content = '\nCell_Input: ' + cellRows.join('\n') + '\nNFS_Input: ' + nfsRows.join('\n') + '\n\n###\n\n';
+    const record = {
+      file_name: 'pasted_data',
+      messages: [
+        { role: 'system', content: '' },
+        { role: 'user', content },
+        { role: 'assistant', content: [] },
+      ],
+    };
+
+    const jsonl = JSON.stringify(record);
+    const originals = { pasted_data: text };
+    document.getElementById('output-filename').textContent = 'pasted_data';
+    lastFile = { jsonl, originals, name: 'pasted_data' };
+    runPipeline(jsonl, originals);
+  });
+</script>
+</body>
+</html>

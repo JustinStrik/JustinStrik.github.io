@@ -219,9 +219,9 @@
       <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12M8 8l4-4 4 4"/>
       </svg>
-      <h3>Drop a file, or <span class="browse" id="browse-btn">browse</span></h3>
-      <p>.xlsx · .xlsb · .xls · .csv</p>
-      <input type="file" id="file-input" accept=".xlsx,.xlsb,.xls,.csv">
+      <h3>Drop a file, or click to browse</h3>
+      <p>.xlsx · .xlsb · .csv</p>
+      <input type="file" id="file-input" accept=".xlsx,.xlsb,.csv">
     </div>
 
     <div style="width:100%;max-width:520px;text-align:center;font-size:12px;color:var(--text3);margin:4px 0">— or paste CSV / tab-separated text —</div>
@@ -334,17 +334,19 @@
 
   setStatus('Loading compression engine…');
 
-  // ── Drag & drop
+  // ── Drag & drop + click
   const dz = document.getElementById('dropzone');
   const fi = document.getElementById('file-input');
-  document.getElementById('browse-btn').onclick = () => fi.click();
-  fi.onchange = e => { if (e.target.files[0]) handleFile(e.target.files[0]); };
-  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
-  dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+  dz.addEventListener('click', () => fi.click());
+  fi.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); fi.value = ''; });
+  dz.addEventListener('dragover', e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('over'); });
+  dz.addEventListener('dragleave', e => { e.preventDefault(); dz.classList.remove('over'); });
   dz.addEventListener('drop', e => {
     e.preventDefault();
+    e.stopPropagation();
     dz.classList.remove('over');
-    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
   });
 
   // ── Mode / options

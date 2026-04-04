@@ -467,6 +467,12 @@
     if (!results.length) { setStatus('No output produced.', true); return; }
 
     for (const s of results) {
+      // If compression inflated the output, fall back to vanilla (original)
+      if (s.comp_tokens > s.orig_tokens) {
+        s.compressed = s.original;
+        s.comp_tokens = s.orig_tokens;
+        s.chosenMode = 'vanilla (fallback)';
+      }
       // Display the raw sheet as TSV (readable) but keep orig_tokens from the
       // WASM (based on the Cell_Input format — the actual uncompressed LLM input).
       s.rawOriginal = originals[s.name] ?? s.original;

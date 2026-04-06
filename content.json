@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "title": "Justin Strikowski Portfolio",
+    "favicon": "images/headshot.jpg",
+    "footer": "© 2025 Justin Strikowski"
+  },
+  "loading": {
+    "name": "Justin Strikowski",
+    "label": "Software Engineer Portfolio",
+    "enterText": "click anywhere or press any key to enter"
+  },
+  "nav": {
+    "logo": "JS",
+    "links": [
+      { "text": "Projects", "href": "#projects" },
+      { "text": "Experience", "href": "#experience" },
+      { "text": "Education", "href": "#education" },
+      { "text": "Skills", "href": "#skills" },
+      { "text": "Contact", "href": "#contact" }
+    ]
+  },
+  "hero": {
+    "label": "Software Developer · Los Angeles, CA",
+    "firstName": "Justin",
+    "lastName": "Strikowski",
+    "description": "Software developer with an M.S. in Computer Science from the University of Florida and a peer-reviewed ACM publication in bioinformatics. Experienced across the full stack — from AI-driven platforms and cloud pipelines to database design. Currently building at AcquiOS.",
+    "headshot": "images/headshot.jpg",
+    "links": [
+      { "text": "View Work", "href": "#projects", "icon": "fas fa-arrow-down", "style": "primary" },
+      { "text": "GitHub", "href": "https://github.com/JustinStrik", "icon": "fab fa-github", "style": "ghost" },
+      { "text": "LinkedIn", "href": "https://www.linkedin.com/in/justin-strikowski-a8a715208", "icon": "fab fa-linkedin", "style": "ghost" }
+    ]
+  },
+  "projects": {
+    "sectionLabel": "Work",
+    "sectionTitle": "Selected Projects",
+    "items": [
+      {
+        "year": "2025",
+        "title": "XLcompress — Spreadsheet Compression for LLMs",
+        "description": "Open-source Rust library (with Python bindings via PyO3) that compresses Excel spreadsheets for LLM context windows, achieving 80-95% token reduction. Implements the SpreadsheetLLM compression pipeline with structural detection, data-format aggregation, and smart output selection. Published on PyPI with pre-built wheels for all platforms.",
+        "tags": ["Rust", "Python", "PyO3", "WASM", "LLM", "Open Source"],
+        "screenshot": null,
+        "links": [
+          { "url": "https://github.com/JustinStrik/xlcompress", "icon": "fab fa-github", "title": "GitHub" },
+          { "url": "https://pypi.org/project/xlcompress/", "icon": "fab fa-python", "title": "PyPI" },
+          { "url": "xlcompress/", "icon": "fas fa-external-link-alt", "title": "Try it" }
+        ]
+      },
+      {
+        "year": "2025",
+        "title": "BrandRadar — Sentiment Monitoring",
+        "description": "Built custom software for an online brand-mention monitoring platform using Python, n8n, and MySQL. Tracks and analyzes brand perception across social media and review channels in real time.",
+        "tags": ["Python", "MySQL", "n8n", "NLP", "Automation"],
+        "screenshot": "images/brandradar.png",
+        "links": [
+          { "url": "https://brandradar.co/", "icon": "fas fa-external-link-alt", "title": "Live" }
+        ]
+      },
+      {
+        "year": "2025",
+        "title": "AcquiOS — AI Deal Analysis Platform",
+        "description": "Built core features of an AI-driven real-estate deal-analysis tool that evaluates and ranks potential acquisitions. Designed and maintained a custom CMS powering both the main site and commercial real estate landing pages.",
+        "tags": ["Full-Stack", "CMS", "AI", "React", "Real Estate"],
+        "screenshot": "images/acquios.png",
+        "links": [
+          { "url": "https://acquios.ai/p/acquios", "icon": "fas fa-external-link-alt", "title": "Live" },
+          { "url": "https://acquios.ai/p/commercial_real_estate", "icon": "fas fa-building", "title": "CRE Page" }
+        ]
+      },
+      {
+        "year": "2025",
+        "title": "PLATO — ACM Bioinformatics Research",
+        "description": "Co-authored \"PLATO: Predicting Longitudinally-Aligned Time Observations of Biological Networks,\" comparing matrix factorization, ML, and other methods for predicting missing time-series values in gene-interaction networks. Published at ACM BCB 2025.",
+        "tags": ["AI/ML", "Bioinformatics", "Python", "ACM"],
+        "screenshot": "images/plato-graphs.png",
+        "links": [
+          { "url": "https://dl.acm.org/doi/10.1145/3765612.3767242", "icon": "fas fa-file-alt", "title": "Publication" }
+        ]
+      },
+      {
+        "year": "2023–2025",
+        "title": "Computational Chemistry Research",
+        "description": "Customized data-analysis tools using Python and MongoDB to transform raw experimental data into structured, queryable formats for computational chemistry research at UF. Collaborated with researchers to iterate on tool design through ongoing feedback.",
+        "tags": ["Python", "MongoDB", "Data Analysis", "UF"],
+        "screenshot": "images/liu-group.png",
+        "links": [
+          { "url": "https://github.com/Liu-Group-UF", "icon": "fab fa-github", "title": "GitHub" },
+          { "url": "https://liu.chem.ufl.edu/", "icon": "fas fa-external-link-alt", "title": "Lab Site" }
+        ]
+      },
+      {
+        "year": "2022",
+        "title": "Financial Statements Module",
+        "description": "Built the Financial Statements Module during an internship at SerVC, working in full-stack development with MySQL, TypeScript, CSS, and HTML. Collaborated with developers to ensure seamless integration.",
+        "tags": ["TypeScript", "MySQL", "Fintech", "Full-Stack"],
+        "screenshot": "images/orca.png",
+        "links": [
+          { "url": "https://www.orcainc.com/p/financial-statements", "icon": "fas fa-external-link-alt", "title": "Live" }
+        ]
+      },
+      {
+        "year": "2024",
+        "title": "Baseball MiniPros",
+        "description": "Interactive baseball simulation built in Processing for an Interactive Modeling & Animation course. Uses a Bézier curve for the outfield fence geometry, checking y-at-x for home run detection.",
+        "tags": ["Processing", "Simulation", "Bézier Curves", "Animation"],
+        "screenshot": "images/baseball-minipros.png",
+        "screenshotStyle": "object-fit:contain;background:#2a3a2a",
+        "links": [
+          { "url": "https://github.com/JustinStrik/Baseball-MiniPros", "icon": "fab fa-github", "title": "GitHub" }
+        ]
+      }
+    ]
+  },
+  "publication": {
+    "sectionLabel": "Research",
+    "sectionTitle": "Publication",
+    "title": "PLATO: Predicting Longitudinally-Aligned Time Observations of Biological Networks",
+    "authors": "T. Khatib, S. Gafarov, <strong>J. Strikowski</strong>, M. Turan, T. Kahveci",
+    "venue": "ACM Conference on Bioinformatics, Computational Biology, and Health Informatics (BCB), 2025",
+    "url": "https://dl.acm.org/doi/10.1145/3765612.3767242",
+    "linkText": "View on ACM Digital Library"
+  },
+  "experience": {
+    "sectionLabel": "Background",
+    "sectionTitle": "Experience",
+    "items": [
+      {
+        "title": "Software Developer",
+        "meta": "AcquiOS · Feb 2025 – Present",
+        "description": "Building core features of the AcquiOS AI deal-analysis platform and BrandRadar sentiment monitoring tool. Designed and maintained a custom CMS powering both products."
+      },
+      {
+        "title": "Research Software Developer — Bioinformatics",
+        "meta": "University of Florida · Sep 2024 – Jun 2025",
+        "description": "Worked with Prof. Tamer Kahveci comparing matrix factorization, ML, and other methods for predicting missing time-series values in gene-interaction networks. Co-authored ACM BCB 2025 paper."
+      },
+      {
+        "title": "Research Associate — AI Database Design",
+        "meta": "UF Chemistry Dept. (Liu Group) · Jan 2023 – May 2025",
+        "description": "Customized data-analysis tools with Python and MongoDB for computational chemistry research. UF AI Scholar Award recipient."
+      },
+      {
+        "title": "Data Science and AI Intern",
+        "meta": "Kyndryl (Fortune 500) · Jul 2023 – Aug 2023",
+        "description": "Created Google Cloud pipelines using AI and cloud computing for clients to streamline business operations."
+      },
+      {
+        "title": "AI Web Application Developer",
+        "meta": "TextWith (Freelance) · Dec 2022 – Jan 2023",
+        "description": "Developed an OpenAI-powered text generator using TypeScript and Angular that analyzes inputs and responds with philosophical insights."
+      },
+      {
+        "title": "Full-Stack Developer Intern",
+        "meta": "SerVC / Orca Inc · Jun 2022 – Aug 2022",
+        "description": "Built the Financial Statements Module using MySQL, TypeScript, CSS, and HTML in a collaborative full-stack environment."
+      }
+    ]
+  },
+  "education": {
+    "sectionLabel": "Education",
+    "schoolName": "University of Florida",
+    "schoolNameAccent": "Florida",
+    "logo": "images/uf-gator.png",
+    "cards": [
+      {
+        "degree": "M.S. in Computer Science",
+        "meta": "May 2025 · 3.87 GPA · Magna Cum Laude",
+        "description": "Research focus in bioinformatics and AI. Published at ACM BCB 2025.",
+        "honors": [
+          { "text": "ACM Publication", "url": "https://dl.acm.org/doi/10.1145/3765612.3767242" },
+          { "text": "Student Government Senator", "url": "https://web.archive.org/web/20250419083252/https://sg.ufl.edu/branches/legislative/senate-roster/" },
+          { "text": "Florida Blue Key", "url": "https://www.fbk.org/" }
+        ]
+      },
+      {
+        "degree": "B.S. in Computer Science + AI Certificate",
+        "meta": "May 2024 · 3.89 GPA · Magna Cum Laude",
+        "description": "Graduated with honors and full scholarship. Recognized for outstanding AI research.",
+        "id": "bs-card",
+        "honors": [
+          { "text": "President's List" },
+          { "text": "Dean's List" },
+          { "text": "UF AI Scholar Award", "url": "https://liu.chem.ufl.edu/2023/04/17/justin-strikowski-received-artificial-intelligence-scholar-award/" },
+          { "text": "Bright Futures Full Scholarship" },
+          { "text": "TensorFlow Certified (IBM)", "url": "https://www.credly.com/badges/9ea9d483-c56a-46c7-ae02-982a30041279/linked_in_profile" },
+          { "text": "IEEE Member" }
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "sectionLabel": "Toolkit",
+    "sectionTitle": "Technical Skills",
+    "groups": [
+      { "title": "Languages", "content": "Python, Java, C++, JavaScript/TypeScript, SQL, Julia, LaTeX" },
+      { "title": "Web & Full-Stack", "content": "React, Angular, Node.js, HTML/CSS, REST APIs, Git, Agile/Jira" },
+      { "title": "Data & AI/ML", "content": "TensorFlow, RAG, Vector DBs, Bioinformatics, Power BI, n8n" },
+      { "title": "Infrastructure", "content": "AWS, Google Cloud, Docker, MongoDB, MySQL, HPC" }
+    ]
+  },
+  "contact": {
+    "sectionLabel": "Connect",
+    "sectionTitle": "Get in Touch",
+    "items": [
+      { "icon": "fas fa-envelope", "text": "strikowski.justin@gmail.com", "url": "mailto:strikowski.justin@gmail.com" },
+      { "icon": "fab fa-github", "text": "JustinStrik", "url": "https://github.com/JustinStrik" },
+      { "icon": "fab fa-linkedin", "text": "LinkedIn", "url": "https://www.linkedin.com/in/justin-strikowski-a8a715208" }
+    ]
+  }
+}

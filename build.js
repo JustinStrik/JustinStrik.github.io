@@ -107,6 +107,9 @@ const html = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${t(content.meta.title)}</title>
     <link rel="icon" type="image/jpeg" href="${a(content.meta.favicon)}">
+${content.meta.gaId ? `    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${a(content.meta.gaId)}"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${a(content.meta.gaId)}');</script>` : ''}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">

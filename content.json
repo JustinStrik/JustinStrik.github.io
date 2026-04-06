@@ -2,7 +2,8 @@
   "meta": {
     "title": "Justin Strikowski Portfolio",
     "favicon": "images/headshot.jpg",
-    "footer": "© 2025 Justin Strikowski"
+    "footer": "© 2025 Justin Strikowski",
+    "gaId": "G-Y7T1JMR3LR"
   },
   "loading": {
     "name": "Justin Strikowski",
